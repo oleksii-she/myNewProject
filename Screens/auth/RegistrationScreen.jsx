@@ -12,16 +12,15 @@ import {
   TouchableWithoutFeedback,
   useWindowDimensions,
 } from "react-native";
-import { styles, loginStyle } from "./styles";
+import { styles, loginStyle } from "../styles";
 import React, { useState } from "react";
 
 const initialState = {
-  name: "",
   email: "",
   password: "",
 };
 
-export const LoginScreen = () => {
+const RegistrationScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [dataState, setDataState] = useState(initialState);
   const { height, width } = useWindowDimensions();
@@ -31,9 +30,7 @@ export const LoginScreen = () => {
     Keyboard.dismiss();
     setDataState(initialState);
   };
-  console.log("====================================");
-  console.log("asda");
-  console.log("====================================");
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -43,14 +40,35 @@ export const LoginScreen = () => {
     >
       <View
         style={{
-          ...loginStyle.loginBox,
+          ...styles.regBox,
           maxHeight: isShowKeyboard ? 300 : null,
-          paddingBottom: height <= 420 ? 15 : 111,
+          paddingBottom: height <= 420 ? 8 : 45,
         }}
       >
+        <View style={styles.imgBox}>
+          <Image
+            source={require("../images/avatar.png")}
+            style={styles.avatar}
+          />
+          {/* <TouchableOpacity style={styles.buttonLogin}>
+            <Image
+              source={require("./images/btn/add.svg")}
+              style={styles.btnAdd}
+            />
+          </TouchableOpacity> */}
+        </View>
         <View style={styles.form}>
           <Text style={styles.title}>Войти</Text>
           <View>
+            <TextInput
+              style={styles.input}
+              placeholder="Логин"
+              onFocus={() => setIsShowKeyboard(true)}
+              value={dataState.name}
+              onChangeText={(value) =>
+                setDataState((prevState) => ({ ...prevState, name: value }))
+              }
+            />
             <TextInput
               style={styles.input}
               placeholder="Адрес электронной почты"
@@ -78,13 +96,16 @@ export const LoginScreen = () => {
             >
               <Text style={styles.refistrTextButton}>Войти</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonLogin}>
+            <TouchableOpacity
+              style={styles.buttonLogin}
+              // onPress={() => navigation.navigate("Registr")}
+            >
               <Text
                 style={{
                   ...styles.buttonLoginText,
                 }}
               >
-                Нет аккаунта? Зарегистрироваться
+                Уже есть аккаунт? Войти
               </Text>
             </TouchableOpacity>
           </View>
@@ -93,3 +114,5 @@ export const LoginScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
+
+export default RegistrationScreen;

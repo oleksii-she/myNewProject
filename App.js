@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from "react";
 import { View, ImageBackground } from "react-native";
-import { RegistrationScreen } from "./Screens/RegistrationScreen";
-import { LoginScreen } from "./Screens/LoginScreen";
+import RegistrationScreen from "./Screens/auth/RegistrationScreen";
+import LoginScreen from "./Screens/auth/LoginScreen";
 import { styles } from "./Screens/styles";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { Publications } from "./Screens/Publicatins";
 
 SplashScreen.preventAutoHideAsync();
 const App = () => {
@@ -32,8 +31,7 @@ const App = () => {
         style={styles.image}
       >
         {/* <RegistrationScreen /> */}
-        <LoginScreen />
-        {/* <Publications /> */}
+        {/* <LoginScreen /> */}
       </ImageBackground>
     </View>
   );
