@@ -16,8 +16,8 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingTop: 92,
-    paddingLeft: 16,
-    paddingRight: 16,
+    paddingBottom: 45,
+    paddingHorizontal: 16,
   },
 
   imgBox: {
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
   avatar: {
     width: 120,
     position: "absolute",
-    bottom: 15,
+    bottom: 32,
     borderRadius: 16,
   },
 
@@ -39,28 +39,27 @@ export const styles = StyleSheet.create({
     bottom: 15,
     zIndex: 9999,
   },
-  form: {
-    flex: 1,
-    alignItems: "center",
-  },
+
   title: {
     color: "#212121",
     fontSize: 30,
     marginBottom: 32,
-    // fontFamily: "Roboto-bold",
+    fontFamily: "Roboto-Medium",
+    fontWeight: "500",
+    textAlign: "center",
   },
-
+  form: {},
   input: {
     borderWidth: 1,
     borderColor: " #E8E8E8",
     borderRadius: 8,
     backgroundColor: "#F6F6F6",
-    width: 343,
     height: 50,
     padding: 16,
     marginBottom: 16,
     textAlign: "center",
-
+    fontFamily: "Roboto-Regular",
+    fontWeight: "400",
     fontSize: 16,
   },
 
@@ -75,6 +74,8 @@ export const styles = StyleSheet.create({
   refistrTextButton: {
     color: "#FFFFFF",
     fontSize: 16,
+    fontFamily: "Roboto-Regular",
+    fontWeight: "400",
   },
 
   buttonLogin: {
@@ -84,5 +85,23 @@ export const styles = StyleSheet.create({
   },
   buttonLoginText: {
     color: "#1B4371",
+    fontFamily: "Roboto-Regular",
+    fontWeight: "400",
+  },
+});
+
+export const loginStyle = StyleSheet.create({
+  loginBox: {
+    backgroundColor: "#FFFFFF",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    paddingTop: 32,
+    paddingBottom: 111,
+  },
+});
+
+export const publicationStyles = StyleSheet.create({
+  publicationBox: {
+    backgroundColor: "#E5E5E5",
   },
 });

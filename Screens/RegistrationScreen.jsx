@@ -10,15 +10,10 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
+  useWindowDimensions,
 } from "react-native";
 import { styles } from "./styles";
 import React, { useState } from "react";
-// import * as Font from "expo-font";
-// import { useFonts } from "expo-font";
-// import { AppLoading } from "expo";
-// import * as SplashScreen from "expo-splash-screen";
-
-// SplashScreen.preventAutoHideAsync();
 
 const initialState = {
   name: "",
@@ -26,17 +21,13 @@ const initialState = {
   password: "",
 };
 
-// const loadApplication = async () => {
-//   await Font.loadAsync({
-//     "Roboto-bold": require("./fonts/Roboto-bold"),
-//   });
-// };
-
 export const RegistrationScreen = () => {
-  // const [iasReady, setIasReady] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [dataState, setDataState] = useState(initialState);
-
+  const { height, width } = useWindowDimensions();
+  console.log("====================================");
+  console.log(height);
+  console.log("====================================");
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
@@ -50,7 +41,13 @@ export const RegistrationScreen = () => {
         Keyboard.dismiss();
       }}
     >
-      <View style={{ ...styles.regBox, minHeight: isShowKeyboard ? 360 : 515 }}>
+      <View
+        style={{
+          ...styles.regBox,
+          maxHeight: isShowKeyboard ? 300 : null,
+          paddingBottom: height <= 420 ? 8 : 45,
+        }}
+      >
         <View style={styles.imgBox}>
           <Image
             source={require("./images/avatar.png")}
@@ -104,7 +101,7 @@ export const RegistrationScreen = () => {
               <Text style={styles.refistrTextButton}>Зарегистрироваться</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonLogin}>
-              <Text style={styles.buttonLoginText}>
+              <Text style={{ ...styles.buttonLoginText }}>
                 Уже есть аккаунт? Войти
               </Text>
             </TouchableOpacity>
