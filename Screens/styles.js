@@ -18,6 +18,8 @@ export const styles = StyleSheet.create({
     paddingTop: 92,
     paddingBottom: 45,
     paddingHorizontal: 16,
+    flex: 1,
+    justifyContent: "flex-end",
   },
 
   imgBox: {
@@ -99,6 +101,9 @@ export const loginStyle = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingTop: 32,
     paddingBottom: 111,
+
+    flex: 1,
+    justifyContent: "flex-end",
   },
 });
 

@@ -15,14 +15,14 @@ import {
 import { styles, postStyles } from "../styles";
 const PostsScreen = () => {
   return (
-    <View style={styles.container}>
-      <View style={postStyles.postBox}>
+    <View>
+      <View>
         <View>
           <Text>post</Text>
         </View>
-        <View style={postStyles.postFooter}>
+        {/* <View style={postStyles.postFooter}>
           <Text>post Footer</Text>
-        </View>
+        </View> */}
       </View>
     </View>
   );

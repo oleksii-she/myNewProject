@@ -1,35 +1,20 @@
 import React, { useState, useCallback } from "react";
 // import { View, ImageBackground } from "react-native";
-import RegistrationScreen from "./Screens/auth/RegistrationScreen";
-import LoginScreen from "./Screens/auth/LoginScreen";
+
 // import { styles } from "./Screens/styles";
 // import { useFonts } from "expo-font";
 // import * as SplashScreen from "expo-splash-screen";
-
+import { useRoute } from "./route";
 // SplashScreen.preventAutoHideAsync();
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const AuthStack = createNativeStackNavigator();
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <AuthStack.Navigator>
-        <AuthStack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ title: "Welcome" }}
-        />
-        <AuthStack.Screen
-          name="Registr"
-          component={RegistrationScreen}
-          options={{ title: "Welcome" }}
-        />
-      </AuthStack.Navigator>
-    </NavigationContainer>
-  );
+  const routing = useRoute(null);
+  return <NavigationContainer>{routing}</NavigationContainer>;
 };
 
 export default App;
