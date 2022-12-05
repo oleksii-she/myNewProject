@@ -48,7 +48,9 @@ export const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
   },
-  form: {},
+  form: {
+    paddingHorizontal: 16,
+  },
   input: {
     borderWidth: 1,
     borderColor: " #E8E8E8",
