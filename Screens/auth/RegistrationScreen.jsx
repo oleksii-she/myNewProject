@@ -66,7 +66,7 @@ const RegistrationScreen = ({ navigation }) => {
           <View
             style={{
               ...styles.regBox,
-              maxHeight: isShowKeyboard ? 300 : null,
+              maxHeight: isShowKeyboard ? 290 : null,
               paddingBottom: height <= 420 ? 8 : 45,
             }}
           >

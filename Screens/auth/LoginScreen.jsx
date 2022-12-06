@@ -65,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
           <View
             style={{
               ...loginStyle.loginBox,
-              maxHeight: isShowKeyboard ? 300 : null,
+              maxHeight: isShowKeyboard ? 230 : null,
               paddingBottom: height <= 420 ? 15 : 111,
             }}
           >
