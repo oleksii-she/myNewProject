@@ -18,8 +18,6 @@ export const styles = StyleSheet.create({
     paddingTop: 92,
     paddingBottom: 45,
     paddingHorizontal: 16,
-    flex: 1,
-    justifyContent: "flex-end",
   },
 
   imgBox: {
@@ -46,7 +44,7 @@ export const styles = StyleSheet.create({
     color: "#212121",
     fontSize: 30,
     marginBottom: 32,
-    fontFamily: "Roboto-Medium",
+    fontFamily: "Roboto-Bold",
     fontWeight: "500",
     textAlign: "center",
   },
@@ -101,9 +99,6 @@ export const loginStyle = StyleSheet.create({
     borderTopRightRadius: 25,
     paddingTop: 32,
     paddingBottom: 111,
-
-    flex: 1,
-    justifyContent: "flex-end",
   },
 });
 

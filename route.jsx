@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import { View, TouchableWithoutFeedback, Button } from "react-native";
 const AuthStack = createNativeStackNavigator();
 const MainTab = createBottomTabNavigator();
 
@@ -9,9 +9,17 @@ import RegistrationScreen from "./Screens/auth/RegistrationScreen";
 import LoginScreen from "./Screens/auth/LoginScreen";
 
 // main screen
+
 import PostsScreen from "./Screens/mainScreen/PostsScreen";
 import CreatePostsScreen from "./Screens/mainScreen/CreatePostsScreen";
 import ProfileScreen from "./Screens/mainScreen/ProfileScreen";
+
+//svg
+import Profile from "././assets/image/iconMain/profile.svg";
+
+import Publications from "././assets/image/iconMain/publications.svg";
+
+import { ButtonsCreatePublication } from "./components/buttonsCreate";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -35,21 +43,39 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <MainTab.Navigator>
+    <MainTab.Navigator tabBarOptions={{ showLabel: false }}>
       <MainTab.Screen
-        name="Post"
-        options={{ headerTitle: "Публикации" }}
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <Publications name="postage-stamp" size={size} color={color} />
+          ),
+        }}
+        name="Posts"
         component={PostsScreen}
       />
 
       <MainTab.Screen
         name="Create"
-        options={{ headerTitle: "Создать публикацию" }}
+        options={{
+          headerTitle: "Создать публикацию",
+          tabBarIcon: ({ focused, size, color }) => (
+            <ButtonsCreatePublication
+              name="postage-stamp"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
         component={CreatePostsScreen}
       />
       <MainTab.Screen
         name="Profile"
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, size, color }) => (
+            <Profile name="postage-stamp" size={size} color={color} />
+          ),
+        }}
         component={ProfileScreen}
       />
     </MainTab.Navigator>
