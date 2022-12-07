@@ -87,6 +87,7 @@ const RegistrationScreen = ({ navigation }) => {
                   placeholder="Логин"
                   onFocus={() => setIsShowKeyboard(true)}
                   value={dataState.name}
+                  onSubmitEditing={keyboardHide}
                   onChangeText={(value) =>
                     setDataState((prevState) => ({ ...prevState, name: value }))
                   }
@@ -95,6 +96,7 @@ const RegistrationScreen = ({ navigation }) => {
                   style={styles.input}
                   placeholder="Адрес электронной почты"
                   onFocus={() => setIsShowKeyboard(true)}
+                  onSubmitEditing={keyboardHide}
                   value={dataState.email}
                   onChangeText={(value) =>
                     setDataState((prevState) => ({
@@ -109,7 +111,7 @@ const RegistrationScreen = ({ navigation }) => {
                   secureTextEntry={true}
                   onFocus={() => setIsShowKeyboard(true)}
                   value={dataState.password}
-                  onSubmitEditing={Keyboard.dismiss}
+                  onSubmitEditing={keyboardHide}
                   onChangeText={(value) =>
                     setDataState((prevState) => ({
                       ...prevState,

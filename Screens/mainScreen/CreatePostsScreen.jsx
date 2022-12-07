@@ -1,10 +1,11 @@
 import { View, Text } from "react-native";
+import CameraComponent from "../../components/camera";
 
 const CreatePostsScreen = () => {
   return (
-    <View>
-      <Text>CreatePostsScreen</Text>
-    </View>
+    <>
+      <CameraComponent />
+    </>
   );
 };
 

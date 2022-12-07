@@ -107,3 +107,54 @@ export const publicationStyles = StyleSheet.create({
     backgroundColor: "#E5E5E5",
   },
 });
+
+export const CreatePostStyles = StyleSheet.create({
+  createBox: {
+    paddingHorizontal: 16,
+    paddingVertical: 32,
+    flex: 1,
+    justifyContent: "space-between",
+  },
+
+  buttonCamera: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 60,
+    width: 60,
+    height: 60,
+    backgroundColor: "#FFFFFF",
+  },
+
+  camera: {
+    height: 240,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  photoBox: {
+    borderRadius: 8,
+    width: 200,
+
+    border: 1,
+    backgroundColor: "#021",
+  },
+
+  buttonPuplication: {
+    alignItems: "center",
+    backgroundColor: "#F6F6F6",
+    paddingBottom: 16,
+    paddingTop: 16,
+    borderRadius: 100,
+    marginBottom: 120,
+  },
+
+  buttonDellete: {
+    backgroundColor: "#F6F6F6",
+    width: 70,
+    height: 40,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

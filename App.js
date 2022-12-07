@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-// import { View, ImageBackground } from "react-native";
+import { View, ImageBackground } from "react-native";
 
 // import { styles } from "./Screens/styles";
 // import { useFonts } from "expo-font";
@@ -10,7 +10,8 @@ import { useRoute } from "./route";
 import { NavigationContainer } from "@react-navigation/native";
 
 const App = () => {
-  const routing = useRoute(null);
+  const routing = useRoute(true);
+
   return <NavigationContainer>{routing}</NavigationContainer>;
 };
 

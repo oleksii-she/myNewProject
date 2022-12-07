@@ -34,6 +34,10 @@ const LoginScreen = ({ navigation }) => {
     setDataState(initialState);
   };
 
+  // const returnKeyboard = () => {
+  //   onSubmitEditing;
+  // };
+
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
@@ -77,6 +81,7 @@ const LoginScreen = ({ navigation }) => {
                   placeholder="Адрес электронной почты"
                   onFocus={() => setIsShowKeyboard(true)}
                   value={dataState.email}
+                  onSubmitEditing={keyboardHide}
                   onChangeText={(value) =>
                     setDataState((prevState) => ({
                       ...prevState,
@@ -90,7 +95,7 @@ const LoginScreen = ({ navigation }) => {
                   secureTextEntry={true}
                   onFocus={() => setIsShowKeyboard(true)}
                   value={dataState.password}
-                  onSubmitEditing={Keyboard.dismiss}
+                  onSubmitEditing={keyboardHide}
                   onChangeText={(value) =>
                     setDataState((prevState) => ({
                       ...prevState,
