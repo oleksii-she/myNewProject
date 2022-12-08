@@ -1,7 +1,4 @@
-import * as MediaLibrary from "expo-media-library";
-import { Camera, CameraType } from "expo-camera";
 import { useEffect, useRef, useState } from "react";
-
 import {
   ImageBackground,
   View,
@@ -16,6 +13,9 @@ import {
   TouchableWithoutFeedback,
   useWindowDimensions,
 } from "react-native";
+import { Camera, CameraType } from "expo-camera";
+
+import * as MediaLibrary from "expo-media-library";
 
 // icon
 import { AntDesign } from "@expo/vector-icons";
@@ -33,6 +33,7 @@ const CameraComponent = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   //Режим спалаху камери
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  //реф який беремо с камери
   const cameraRef = useRef(null);
 
   useEffect(() => {
@@ -49,23 +50,30 @@ const CameraComponent = () => {
     if (cameraRef) {
       try {
         const data = await cameraRef.current.takePictureAsync();
-        console.log("====================================");
-        console.log(data);
-        console.log("====================================");
+
         setImage(data.uri);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
+    } else {
+      console.log("sooor");
     }
   };
 
   if (hasCameraPremission === false) {
     return <Text>no acces to camera</Text>;
   }
+
+  console.log("====================================");
+  console.log(image);
+  console.log("====================================");
   return (
     <View style={styles.container}>
       <View style={CreatePostStyles.createBox}>
-        <Camera style={CreatePostStyles.camera} type={type} flashMode={flash}>
+        <Camera
+          style={CreatePostStyles.camera}
+          type={type}
+          flashMode={flash}
+          ref={cameraRef}
+        >
           <View style={CreatePostStyles.buttonCamera}>
             <TouchableOpacity
               style={CreatePostStyles.camera}
