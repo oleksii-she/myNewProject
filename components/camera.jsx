@@ -22,13 +22,12 @@ import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
 ///styles
-import { styles, CreatePostStyles } from "../Screens/styles";
+import { CameraStyle } from "../Screens/styles";
 
-const CameraComponent = () => {
+const CameraComponent = ({ setPhoto }) => {
   //доступ до камери
   const [hasCameraPremission, setHasCameraPremission] = useState(null);
-  //знімок
-  const [image, setImage] = useState(null);
+
   //тип камери
   const [type, setType] = useState(Camera.Constants.Type.back);
   //Режим спалаху камери
@@ -51,7 +50,8 @@ const CameraComponent = () => {
       try {
         const data = await cameraRef.current.takePictureAsync();
 
-        setImage(data.uri);
+        // зебераю фото с камери передаю в в скрін створення фото картки
+        setPhoto(data.uri);
       } catch (error) {}
     } else {
       console.log("sooor");
@@ -61,32 +61,23 @@ const CameraComponent = () => {
   if (hasCameraPremission === false) {
     return <Text>no acces to camera</Text>;
   }
-
-  console.log("====================================");
-  console.log(image);
-  console.log("====================================");
   return (
-    <View style={styles.container}>
-      <View style={CreatePostStyles.createBox}>
-        <Camera
-          style={CreatePostStyles.camera}
-          type={type}
-          flashMode={flash}
-          ref={cameraRef}
-        >
-          <View style={CreatePostStyles.buttonCamera}>
-            <TouchableOpacity
-              style={CreatePostStyles.camera}
-              onPress={takePicture}
-            >
-              <Entypo name="camera" size={24} color="#BDBDBD" />
-            </TouchableOpacity>
-          </View>
-        </Camera>
-        <View style={CreatePostStyles.photoBox}>
-          <Image source={{ uri: image }} />
+    <View style={CameraStyle.createBox}>
+      <Camera
+        type={type}
+        flashMode={flash}
+        ref={cameraRef}
+        style={CameraStyle.camera}
+      >
+        <View style={CameraStyle.buttonCamera}>
+          <TouchableOpacity
+            style={CameraStyle.buttonCamera}
+            onPress={takePicture}
+          >
+            <Entypo name="camera" size={24} color="#BDBDBD" />
+          </TouchableOpacity>
         </View>
-      </View>
+      </Camera>
     </View>
   );
 };
@@ -100,7 +91,7 @@ export default CameraComponent;
 // //           <View style={CreatePostStyles.buttonCamera}>
 // //             <TouchableOpacity
 // //               style={CreatePostStyles.camera}
-// //               onPress={toggleCameraType}
+// //               onPress={toggleCameraType}r
 // //             >
 // //               <Entypo name="camera" size={24} color="#BDBDBD" />
 // //             </TouchableOpacity>

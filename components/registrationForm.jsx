@@ -21,11 +21,16 @@ export const RegistrationForm = ({ navigationLogin }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [dataState, setDataState] = useState(initialState);
   const { height, width } = useWindowDimensions();
-
+  const [passHidden, setPassHidden] = useState(true);
+  //borderColor
+  const [borderColorLogin, setBorderColorLogin] = useState("transparent");
+  const [borderColorEmail, setBorderColorEmail] = useState("transparent");
+  const [borderColorPass, setBorderColorPass] = useState("transparent");
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
     setDataState(initialState);
+    setPassHidden(true);
   };
 
   return (
@@ -33,12 +38,13 @@ export const RegistrationForm = ({ navigationLogin }) => {
       onPress={() => {
         setIsShowKeyboard(false);
         Keyboard.dismiss();
+        setPassHidden(true);
       }}
     >
       <View
         style={{
           ...styles.regBox,
-          maxHeight: isShowKeyboard ? 290 : null,
+          maxHeight: isShowKeyboard ? 360 : null,
           paddingBottom: height <= 420 ? 8 : 45,
         }}
       >
@@ -49,12 +55,22 @@ export const RegistrationForm = ({ navigationLogin }) => {
           />
         </View>
         <View style={styles.form}>
-          <Text style={styles.title}>Войти</Text>
+          <Text style={styles.title}>Регистрация</Text>
           <View>
             <TextInput
-              style={styles.input}
+              style={{
+                ...styles.input,
+                borderColor: borderColorLogin,
+              }}
               placeholder="Логин"
-              onFocus={() => setIsShowKeyboard(true)}
+              onFocus={() => {
+                setIsShowKeyboard(true);
+                setBorderColorLogin("#FF6C00");
+              }}
+              onBlur={() => {
+                setPassHidden(true);
+                setBorderColorLogin("transparent");
+              }}
               value={dataState.name}
               onSubmitEditing={keyboardHide}
               onChangeText={(value) =>
@@ -62,9 +78,19 @@ export const RegistrationForm = ({ navigationLogin }) => {
               }
             />
             <TextInput
-              style={styles.input}
+              style={{
+                ...styles.input,
+                borderColor: borderColorEmail,
+              }}
               placeholder="Адрес электронной почты"
-              onFocus={() => setIsShowKeyboard(true)}
+              onFocus={() => {
+                setIsShowKeyboard(true);
+                setBorderColorEmail("#FF6C00");
+              }}
+              onBlur={() => {
+                setPassHidden(true);
+                setBorderColorEmail("transparent");
+              }}
               onSubmitEditing={keyboardHide}
               value={dataState.email}
               onChangeText={(value) =>
@@ -74,20 +100,40 @@ export const RegistrationForm = ({ navigationLogin }) => {
                 }))
               }
             />
-            <TextInput
-              style={styles.input}
-              placeholder="Пароль"
-              secureTextEntry={true}
-              onFocus={() => setIsShowKeyboard(true)}
-              value={dataState.password}
-              onSubmitEditing={keyboardHide}
-              onChangeText={(value) =>
-                setDataState((prevState) => ({
-                  ...prevState,
-                  password: value,
-                }))
-              }
-            />
+
+            <View style={styles.inputPassBox}>
+              <TextInput
+                style={{
+                  ...styles.input,
+                  borderColor: borderColorPass,
+                }}
+                placeholder="Пароль"
+                secureTextEntry={passHidden}
+                autoFocus={true}
+                onFocus={() => {
+                  setIsShowKeyboard(true);
+                  setBorderColorPass("#FF6C00");
+                }}
+                onBlur={() => {
+                  setPassHidden(true);
+                  setBorderColorPass("transparent");
+                }}
+                value={dataState.password}
+                onSubmitEditing={keyboardHide}
+                onChangeText={(value) =>
+                  setDataState((prevState) => ({
+                    ...prevState,
+                    password: value,
+                  }))
+                }
+              />
+              <TouchableOpacity
+                style={styles.hiddenPass}
+                onPress={() => setPassHidden(false)}
+              >
+                <Text style={styles.textPassHidden}>Показать</Text>
+              </TouchableOpacity>
+            </View>
 
             <TouchableOpacity
               style={styles.buttonRegistr}

@@ -53,8 +53,21 @@ export const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: " #E8E8E8",
     borderRadius: 8,
+    borderColor: "transparent",
+    backgroundColor: "#F6F6F6",
+    height: 50,
+    padding: 16,
+    marginBottom: 16,
+    textAlign: "center",
+    fontFamily: "Roboto-Regular",
+    fontWeight: "400",
+    fontSize: 16,
+  },
+  inputPass: {
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: "transparent",
     backgroundColor: "#F6F6F6",
     height: 50,
     padding: 16,
@@ -65,6 +78,21 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  inputPassBox: {
+    position: "relative",
+  },
+  hiddenPass: {
+    position: "absolute",
+    top: 16,
+    right: 16,
+  },
+
+  textPassHidden: {
+    color: "#1B4371",
+    fontFamily: "Roboto-Regular",
+    fontWeight: "400",
+    fontSize: 16,
+  },
   buttonRegistr: {
     alignItems: "center",
     backgroundColor: "#FF6C00",
@@ -108,12 +136,16 @@ export const publicationStyles = StyleSheet.create({
   },
 });
 
-export const CreatePostStyles = StyleSheet.create({
+export const CameraStyle = StyleSheet.create({
   createBox: {
-    paddingHorizontal: 16,
-    paddingVertical: 32,
     flex: 1,
-    justifyContent: "space-between",
+  },
+
+  camera: {
+    flex: 1,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   buttonCamera: {
@@ -124,20 +156,15 @@ export const CreatePostStyles = StyleSheet.create({
     height: 60,
     backgroundColor: "#FFFFFF",
   },
+});
 
-  camera: {
-    height: 240,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
+export const CreatePostStyles = StyleSheet.create({
   photoBox: {
     borderRadius: 8,
     width: 200,
-
+    height: 800,
+    borderStyle: 1,
     border: 1,
-    backgroundColor: "#021",
   },
 
   buttonPuplication: {

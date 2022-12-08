@@ -6,6 +6,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   useWindowDimensions,
+  StyleSheet,
 } from "react-native";
 
 import { styles, loginStyle } from "../Screens/styles";
@@ -18,19 +19,25 @@ const initialState = {
 
 export const LoginForm = ({ navigationRegistr }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [passHidden, setPassHidden] = useState(true);
   const [dataState, setDataState] = useState(initialState);
   const { height, width } = useWindowDimensions();
-
+  const [borderColorLogin, setBorderColorLogin] = useState("transparent");
+  const [borderColorPass, setBorderColorPass] = useState("transparent");
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+
     setDataState(initialState);
+    setPassHidden(true);
   };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         setIsShowKeyboard(false);
         Keyboard.dismiss();
+        setPassHidden(true);
       }}
     >
       <View
@@ -44,9 +51,21 @@ export const LoginForm = ({ navigationRegistr }) => {
           <Text style={styles.title}>Войти</Text>
           <View>
             <TextInput
-              style={styles.input}
+              style={{
+                ...styles.input,
+                borderColor: borderColorLogin,
+              }}
+              onChange={(e) => {
+                colorBorder(e.target);
+              }}
+              name="email"
               placeholder="Адрес электронной почты"
-              onFocus={() => setIsShowKeyboard(true)}
+              autoFocus={true}
+              onFocus={() => {
+                setIsShowKeyboard(true);
+                setBorderColorLogin("#FF6C00");
+              }}
+              onBlur={() => setBorderColorLogin("transparent")}
               value={dataState.email}
               onSubmitEditing={keyboardHide}
               onChangeText={(value) =>
@@ -56,20 +75,40 @@ export const LoginForm = ({ navigationRegistr }) => {
                 }))
               }
             />
-            <TextInput
-              style={styles.input}
-              placeholder="Пароль"
-              secureTextEntry={true}
-              onFocus={() => setIsShowKeyboard(true)}
-              value={dataState.password}
-              onSubmitEditing={keyboardHide}
-              onChangeText={(value) =>
-                setDataState((prevState) => ({
-                  ...prevState,
-                  password: value,
-                }))
-              }
-            />
+
+            <View style={styles.inputPassBox}>
+              <TextInput
+                style={{
+                  ...styles.input,
+                  borderColor: borderColorPass,
+                }}
+                placeholder="Пароль"
+                secureTextEntry={passHidden}
+                autoFocus={true}
+                onFocus={() => {
+                  setIsShowKeyboard(true);
+                  setBorderColorPass("#FF6C00");
+                }}
+                onBlur={() => {
+                  setPassHidden(true);
+                  setBorderColorPass("transparent");
+                }}
+                value={dataState.password}
+                onSubmitEditing={keyboardHide}
+                onChangeText={(value) =>
+                  setDataState((prevState) => ({
+                    ...prevState,
+                    password: value,
+                  }))
+                }
+              />
+              <TouchableOpacity
+                style={styles.hiddenPass}
+                onPress={() => setPassHidden(false)}
+              >
+                <Text style={styles.textPassHidden}>Показать</Text>
+              </TouchableOpacity>
+            </View>
 
             <TouchableOpacity
               style={styles.buttonRegistr}
