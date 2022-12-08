@@ -158,13 +158,31 @@ export const CameraStyle = StyleSheet.create({
   },
 });
 
-export const CreatePostStyles = StyleSheet.create({
+export const createPostStyles = StyleSheet.create({
   photoBox: {
+    paddingHorizontal: 32,
+    paddingVertical: 16,
+  },
+  imgBox: {
+    alignItems: "center",
+  },
+  image: {
     borderRadius: 8,
-    width: 200,
-    height: 800,
-    borderStyle: 1,
-    border: 1,
+    width: 343,
+    height: 240,
+  },
+
+  boxEdited: {
+    marginTop: 8,
+    marginBottom: 48,
+    justifyContent: "flex-start",
+  },
+  editedText: {
+    color: "#BDBDBD",
+    fontFamily: "Roboto-Regular",
+    fontWeight: "400",
+    fontSize: 16,
+    justifyContent: "flex-start",
   },
 
   buttonPuplication: {
