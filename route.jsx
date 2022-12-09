@@ -20,6 +20,7 @@ import Profile from "././assets/image/iconMain/profile.svg";
 import Publications from "././assets/image/iconMain/publications.svg";
 
 import { ButtonsCreatePublication } from "./components/buttonsCreate";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -43,9 +44,11 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <MainTab.Navigator tabBarOptions={{ showLabel: false }}>
+    <MainTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
       <MainTab.Screen
         options={{
+          headerTitle: "Публикации",
+
           tabBarIcon: ({ focused, size, color }) => (
             <Publications name="postage-stamp" size={size} color={color} />
           ),
@@ -57,6 +60,7 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         name="Create"
         options={{
+          headerTitleAlign: "center",
           headerTitle: "Создать публикацию",
           tabBarIcon: ({ focused, size, color }) => (
             <ButtonsCreatePublication
@@ -72,6 +76,7 @@ export const useRoute = (isAuth) => {
         name="Profile"
         options={{
           headerShown: false,
+
           tabBarIcon: ({ focused, size, color }) => (
             <Profile name="postage-stamp" size={size} color={color} />
           ),

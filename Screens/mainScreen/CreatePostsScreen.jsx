@@ -1,11 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, Button } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { View, Text } from "react-native";
+
 import CameraComponent from "../../components/camera";
 import { styles } from "./../styles";
 
 import { CreatePost } from "../../components/createPost";
+import { useNavigation } from "@react-navigation/native";
 
 const CreatePostsScreen = ({ navigation }) => {
   const [photo, setPhoto] = useState(null);
@@ -31,7 +33,8 @@ const CreatePostsScreen = ({ navigation }) => {
   };
 
   const publicationData = (data) => {
-    return navigation.navigate("Posts", data);
+    navigation.navigate("Posts", data);
+    deletePhoto();
   };
 
   return (

@@ -4,6 +4,7 @@ export const postStyles = StyleSheet.create({
   postConteiner: {
     flex: 1,
     paddingHorizontal: 16,
+    marginBottom: 32,
   },
 
   title: {

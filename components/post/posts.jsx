@@ -4,6 +4,7 @@ import {
   Image,
   TouchableOpacity,
   useWindowDimensions,
+  FlatList,
 } from "react-native";
 
 //styles
@@ -21,35 +22,65 @@ export const Posts = ({ data }) => {
     return imegeWidth;
   };
 
-  {
-    return data ? (
-      <View style={postStyles.postConteiner}>
-        <View style={{ ...createPostStyles.imgBox, marginBottom: 8 }}>
-          <Image
-            source={{ uri: data.img }}
-            style={{ ...createPostStyles.image, width: imageWidth() }}
-          />
-        </View>
-        <Text style={postStyles.title}>{data.name}</Text>
-        <View style={postStyles.descriptionBox}>
-          <View style={postStyles.descriptionItem}>
-            <TouchableOpacity>
-              <EvilIcons name="comment" size={24} color="black" />
-            </TouchableOpacity>
-            <Text>0</Text>
+  return (
+    <FlatList
+      data={data}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={({ item }) => (
+        <View style={postStyles.postConteiner}>
+          <View style={{ ...createPostStyles.imgBox, marginBottom: 8 }}>
+            <Image
+              source={{ uri: item.img }}
+              style={{ ...createPostStyles.image, width: imageWidth() }}
+            />
           </View>
-          <View style={postStyles.descriptionItem}>
-            <TouchableOpacity>
-              <Feather name="map-pin" size={16} color="#BDBDBD" />
-            </TouchableOpacity>
-            <Text style={postStyles.descriptionText}>{data.location}</Text>
+          <Text style={postStyles.title}>{item.name}</Text>
+          <View style={postStyles.descriptionBox}>
+            <View style={postStyles.descriptionItem}>
+              <TouchableOpacity>
+                <EvilIcons name="comment" size={24} color="black" />
+              </TouchableOpacity>
+              <Text>0</Text>
+            </View>
+            <View style={postStyles.descriptionItem}>
+              <TouchableOpacity>
+                <Feather name="map-pin" size={16} color="#BDBDBD" />
+              </TouchableOpacity>
+              <Text style={postStyles.descriptionText}>{item.location}</Text>
+            </View>
           </View>
         </View>
-      </View>
-    ) : (
-      <View>
-        <Text>Ooops</Text>
-      </View>
-    );
-  }
+      )}
+    />
+  );
 };
+
+// return data ? (
+//   <View style={postStyles.postConteiner}>
+//     <View style={{ ...createPostStyles.imgBox, marginBottom: 8 }}>
+//       <Image
+//         source={{ uri: data.img }}
+//         style={{ ...createPostStyles.image, width: imageWidth() }}
+//       />
+//     </View>
+//     <Text style={postStyles.title}>{data.name}</Text>
+//     <View style={postStyles.descriptionBox}>
+//       <View style={postStyles.descriptionItem}>
+//         <TouchableOpacity>
+//           <EvilIcons name="comment" size={24} color="black" />
+//         </TouchableOpacity>
+//         <Text>0</Text>
+//       </View>
+//       <View style={postStyles.descriptionItem}>
+//         <TouchableOpacity>
+//           <Feather name="map-pin" size={16} color="#BDBDBD" />
+//         </TouchableOpacity>
+//         <Text style={postStyles.descriptionText}>{data.location}</Text>
+//       </View>
+//     </View>
+//   </View>
+// ) : (
+//   <View>
+//     <Text>Ooops</Text>
+//   </View>
+// );

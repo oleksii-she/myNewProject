@@ -1,8 +1,8 @@
+import * as MediaLibrary from "expo-media-library";
+import * as Location from "expo-location";
 import { useEffect, useRef, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Camera, CameraType } from "expo-camera";
-
-import * as MediaLibrary from "expo-media-library";
 
 // icon
 
@@ -21,7 +21,10 @@ const CameraComponent = ({ setPhoto }) => {
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   //реф який беремо с камери
   const cameraRef = useRef(null);
+  //location
+  const [errorMsg, setErrorMsg] = useState(null);
 
+  // useEffect camera
   useEffect(() => {
     (async () => {
       MediaLibrary.requestPermissionsAsync();
@@ -31,17 +34,34 @@ const CameraComponent = ({ setPhoto }) => {
     })();
   }, []);
 
+  // useEffect location
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+    })();
+  }, []);
+
   // функція яка робить знімок
   const takePicture = async () => {
     if (cameraRef) {
       try {
         const data = await cameraRef.current.takePictureAsync();
+        let location = await Location.getCurrentPositionAsync({});
+        console.log("====================================");
+        console.log(location);
+        console.log("====================================");
+        setPhoto(data.uri);
 
         // зебераю фото с камери передаю в в скрін створення фото картки
-        setPhoto(data.uri);
-      } catch (error) {}
+      } catch (error) {
+        console.log("cameraRef", error);
+      }
     } else {
-      console.log("sooor");
+      return;
     }
   };
 
