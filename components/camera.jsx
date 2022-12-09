@@ -1,24 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  ImageBackground,
-  View,
-  Text,
-  Image,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
-  useWindowDimensions,
-} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Camera, CameraType } from "expo-camera";
 
 import * as MediaLibrary from "expo-media-library";
 
 // icon
-import { AntDesign } from "@expo/vector-icons";
+
 import { Entypo } from "@expo/vector-icons";
 
 ///styles
@@ -69,14 +56,12 @@ const CameraComponent = ({ setPhoto }) => {
         ref={cameraRef}
         style={CameraStyle.camera}
       >
-        <View style={CameraStyle.buttonCamera}>
-          <TouchableOpacity
-            style={CameraStyle.buttonCamera}
-            onPress={takePicture}
-          >
-            <Entypo name="camera" size={24} color="#BDBDBD" />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={CameraStyle.buttonCamera}
+          onPress={takePicture}
+        >
+          <Entypo name="camera" size={24} color="#BDBDBD" />
+        </TouchableOpacity>
       </Camera>
     </View>
   );

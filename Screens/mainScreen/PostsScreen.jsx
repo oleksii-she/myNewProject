@@ -13,17 +13,12 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { styles, postStyles } from "../styles";
-const PostsScreen = () => {
+
+import { Posts } from "../../components/posts";
+const PostsScreen = ({ route }) => {
   return (
     <View>
-      <View>
-        <View>
-          <Text>post</Text>
-        </View>
-        {/* <View style={postStyles.postFooter}>
-          <Text>post Footer</Text>
-        </View> */}
-      </View>
+      <Posts />
     </View>
   );
 };

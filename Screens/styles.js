@@ -149,6 +149,8 @@ export const CameraStyle = StyleSheet.create({
   },
 
   buttonCamera: {
+    position: "absolute",
+    bottom: 8,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 60,
@@ -160,38 +162,60 @@ export const CameraStyle = StyleSheet.create({
 
 export const createPostStyles = StyleSheet.create({
   photoBox: {
-    paddingHorizontal: 32,
-    paddingVertical: 16,
+    paddingHorizontal: 16,
+    // paddingVertical: 32,
+
+    flex: 1,
+    justifyContent: "space-between",
   },
   imgBox: {
     alignItems: "center",
   },
   image: {
     borderRadius: 8,
-    width: 343,
     height: 240,
   },
 
   boxEdited: {
-    marginTop: 8,
     marginBottom: 48,
-    justifyContent: "flex-start",
   },
   editedText: {
     color: "#BDBDBD",
     fontFamily: "Roboto-Regular",
     fontWeight: "400",
     fontSize: 16,
-    justifyContent: "flex-start",
+  },
+
+  createInput: {
+    borderBottomColor: "#E8E8E8",
+    borderBottomWidth: 1,
+    color: "#212121",
+    fontFamily: "Roboto-Medium",
+    fontWeight: "500",
+    fontSize: 16,
+    paddingBottom: 15,
+  },
+
+  boxMapIcon: {
+    position: "relative",
+    marginTop: 32,
+  },
+
+  iconMap: {
+    position: "absolute",
+    top: 4,
+    left: 0,
   },
 
   buttonPuplication: {
     alignItems: "center",
-    backgroundColor: "#F6F6F6",
+    backgroundColor: "#FF6C00",
     paddingBottom: 16,
     paddingTop: 16,
     borderRadius: 100,
-    marginBottom: 120,
+  },
+  buttonBixDelete: {
+    alignItems: "center",
   },
 
   buttonDellete: {

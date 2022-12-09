@@ -24,6 +24,7 @@ export const LoginForm = ({ navigationRegistr }) => {
   const { height, width } = useWindowDimensions();
   const [borderColorLogin, setBorderColorLogin] = useState("transparent");
   const [borderColorPass, setBorderColorPass] = useState("transparent");
+
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
@@ -54,9 +55,6 @@ export const LoginForm = ({ navigationRegistr }) => {
               style={{
                 ...styles.input,
                 borderColor: borderColorLogin,
-              }}
-              onChange={(e) => {
-                colorBorder(e.target);
               }}
               name="email"
               placeholder="Адрес электронной почты"

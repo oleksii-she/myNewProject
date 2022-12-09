@@ -6,8 +6,10 @@ import CameraComponent from "../../components/camera";
 import { styles } from "./../styles";
 
 import { CreatePost } from "../../components/createPost";
-const CreatePostsScreen = () => {
+
+const CreatePostsScreen = ({ navigation }) => {
   const [photo, setPhoto] = useState(null);
+
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
@@ -27,10 +29,19 @@ const CreatePostsScreen = () => {
   const deletePhoto = () => {
     setPhoto(null);
   };
+
+  const publicationData = (data) => {
+    return navigation.navigate("Posts", data);
+  };
+
   return (
     <View style={styles.container} onLayout={onFontsLoaded}>
       {photo ? (
-        <CreatePost photo={photo} deletePhoto={deletePhoto} />
+        <CreatePost
+          photo={photo}
+          deletePhoto={deletePhoto}
+          publicationData={publicationData}
+        />
       ) : (
         <CameraComponent setPhoto={setPhoto} />
       )}
