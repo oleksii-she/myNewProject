@@ -47,6 +47,14 @@ export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
     setDataState(initialState);
   };
 
+  const heightImageIsShowKeyboard = () => {
+    if (height <= 690) {
+      return 50;
+    } else {
+      return 200;
+    }
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -61,7 +69,7 @@ export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
               source={{ uri: photo }}
               style={{
                 ...createPostStyles.image,
-                height: isShowKeyboard ? 180 : 240,
+                height: isShowKeyboard ? heightImageIsShowKeyboard() : 240,
                 width: imageWidth(),
               }}
             />
