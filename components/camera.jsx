@@ -52,7 +52,8 @@ const CameraComponent = ({ setPhoto }) => {
         const data = await cameraRef.current.takePictureAsync();
         let location = await Location.getCurrentPositionAsync({});
         console.log("====================================");
-        console.log(location);
+        console.log(location.coords.latitude);
+        console.log(location.coords.longitude);
         console.log("====================================");
         setPhoto(data.uri);
 
