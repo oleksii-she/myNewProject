@@ -5,7 +5,6 @@ import { ImageBackground, View } from "react-native";
 import { styles } from "../styles";
 import React, { useCallback } from "react";
 import { LoginForm } from "../../components/loginForm";
-
 const LoginScreen = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
@@ -26,6 +25,9 @@ const LoginScreen = ({ navigation }) => {
   const navigationRegistr = () => {
     navigation.navigate("Registr");
   };
+  const navigationPosts = () => {
+    navigation.navigate("Posts");
+  };
 
   return (
     <View style={styles.container} onLayout={onFontsLoaded}>
@@ -33,7 +35,10 @@ const LoginScreen = ({ navigation }) => {
         style={styles.image}
         source={require("../../assets/image/PhotoBG.png")}
       >
-        <LoginForm navigationRegistr={navigationRegistr} />
+        <LoginForm
+          navigationRegistr={navigationRegistr}
+          navigationPosts={navigationPosts}
+        />
       </ImageBackground>
     </View>
   );

@@ -17,7 +17,7 @@ const initialState = {
   password: "",
 };
 
-export const LoginForm = ({ navigationRegistr }) => {
+export const LoginForm = ({ navigationRegistr, navigationPosts }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [passHidden, setPassHidden] = useState(true);
   const [dataState, setDataState] = useState(initialState);
@@ -110,7 +110,10 @@ export const LoginForm = ({ navigationRegistr }) => {
 
             <TouchableOpacity
               style={styles.buttonRegistr}
-              onPress={keyboardHide}
+              onPress={() => {
+                keyboardHide();
+                navigationPosts();
+              }}
             >
               <Text style={styles.refistrTextButton}>Войти</Text>
             </TouchableOpacity>

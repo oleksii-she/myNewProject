@@ -20,7 +20,8 @@ import Profile from "././assets/image/iconMain/profile.svg";
 import Publications from "././assets/image/iconMain/publications.svg";
 
 import { ButtonsCreatePublication } from "./components/buttonsCreate";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { styles } from "./Screens/styles";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -44,14 +45,23 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <MainTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
+    <MainTab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+      }}
+    >
       <MainTab.Screen
         options={{
           headerTitle: "Публикации",
+          headerTitleAlign: "center",
+          headerRight: ({ focused, size, color }) => (
+            <Feather name="log-out" size={20} color="#BDBDBD" />
+          ),
 
           tabBarIcon: ({ focused, size, color }) => (
             <Publications name="postage-stamp" size={size} color={color} />
           ),
+          headerRightContainerStyle: { paddingRight: 8 },
         }}
         name="Posts"
         component={PostsScreen}
