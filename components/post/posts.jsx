@@ -14,7 +14,7 @@ import { createPostStyles, styles } from "../../Screens/styles";
 import { EvilIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
-export const Posts = ({ data }) => {
+export const Posts = ({ data, navigationComments, navigationMap }) => {
   const { height, width } = useWindowDimensions();
 
   const imageWidth = () => {
@@ -37,13 +37,13 @@ export const Posts = ({ data }) => {
           <Text style={postStyles.title}>{item.name}</Text>
           <View style={postStyles.descriptionBox}>
             <View style={postStyles.descriptionItem}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigationComments()}>
                 <EvilIcons name="comment" size={24} color="black" />
               </TouchableOpacity>
               <Text>0</Text>
             </View>
             <View style={postStyles.descriptionItem}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigationMap()}>
                 <Feather name="map-pin" size={16} color="#BDBDBD" />
               </TouchableOpacity>
               <Text style={postStyles.descriptionText}>{item.location}</Text>

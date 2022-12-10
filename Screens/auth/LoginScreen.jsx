@@ -5,6 +5,7 @@ import { ImageBackground, View } from "react-native";
 import { styles } from "../styles";
 import React, { useCallback } from "react";
 import { LoginForm } from "../../components/loginForm";
+
 const LoginScreen = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),

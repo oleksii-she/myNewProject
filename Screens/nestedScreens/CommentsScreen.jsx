@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 const CommentsScreen = () => {
   return (
     <View>
-      <MapView />
+      <Text>coments</Text>
     </View>
   );
 };

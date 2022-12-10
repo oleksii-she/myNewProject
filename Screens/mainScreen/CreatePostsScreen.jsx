@@ -33,7 +33,7 @@ const CreatePostsScreen = ({ navigation }) => {
   };
 
   const publicationData = (data) => {
-    navigation.navigate("Posts", data);
+    navigation.navigate("Home", data);
     deletePhoto();
   };
 
