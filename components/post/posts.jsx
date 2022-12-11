@@ -37,7 +37,7 @@ export const Posts = ({ data, navigation }) => {
           <Text style={postStyles.title}>{item.name}</Text>
           <View style={postStyles.descriptionBox}>
             <View style={postStyles.descriptionItem}>
-              <TouchableOpacity onPress={() => navigationComments()}>
+              <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
                 <EvilIcons name="comment" size={24} color="black" />
               </TouchableOpacity>
               <Text>0</Text>
@@ -56,33 +56,3 @@ export const Posts = ({ data, navigation }) => {
     />
   );
 };
-
-// return data ? (
-//   <View style={postStyles.postConteiner}>
-//     <View style={{ ...createPostStyles.imgBox, marginBottom: 8 }}>
-//       <Image
-//         source={{ uri: data.img }}
-//         style={{ ...createPostStyles.image, width: imageWidth() }}
-//       />
-//     </View>
-//     <Text style={postStyles.title}>{data.name}</Text>
-//     <View style={postStyles.descriptionBox}>
-//       <View style={postStyles.descriptionItem}>
-//         <TouchableOpacity>
-//           <EvilIcons name="comment" size={24} color="black" />
-//         </TouchableOpacity>
-//         <Text>0</Text>
-//       </View>
-//       <View style={postStyles.descriptionItem}>
-//         <TouchableOpacity>
-//           <Feather name="map-pin" size={16} color="#BDBDBD" />
-//         </TouchableOpacity>
-//         <Text style={postStyles.descriptionText}>{data.location}</Text>
-//       </View>
-//     </View>
-//   </View>
-// ) : (
-//   <View>
-//     <Text>Ooops</Text>
-//   </View>
-// );

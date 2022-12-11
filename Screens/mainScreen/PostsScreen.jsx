@@ -3,6 +3,7 @@ import Home from "../nestedScreens/Home";
 import CommentsScreen from "../nestedScreens/CommentsScreen";
 import MapScreen from "../nestedScreens/MapScreen";
 import { Feather } from "@expo/vector-icons";
+import { BottomTabBar } from "@react-navigation/bottom-tabs";
 
 const NestedScreen = createStackNavigator();
 
@@ -24,8 +25,17 @@ const PostsScreen = () => {
           ),
         }}
       />
-      <NestedScreen.Screen name="Comments" component={CommentsScreen} />
-      <NestedScreen.Screen name="Map" component={MapScreen} />
+      <NestedScreen.Screen
+        name="Comments"
+        component={CommentsScreen}
+        options={{ headerTitle: "Комментарии", headerTitleAlign: "center" }}
+      />
+
+      <NestedScreen.Screen
+        name="Map"
+        component={MapScreen}
+        options={{ headerTitle: "Карта", headerTitleAlign: "center" }}
+      />
     </NestedScreen.Navigator>
   );
 };
