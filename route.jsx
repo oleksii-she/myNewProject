@@ -20,7 +20,7 @@ import Profile from "././assets/image/iconMain/profile.svg";
 import Publications from "././assets/image/iconMain/publications.svg";
 
 import { ButtonsCreatePublication } from "./components/buttonsCreate";
-import { Feather } from "@expo/vector-icons";
+
 import { styles } from "./Screens/styles";
 
 export const useRoute = (isAuth) => {
@@ -52,16 +52,13 @@ export const useRoute = (isAuth) => {
     >
       <MainTab.Screen
         options={{
-          headerTitle: "Публикации",
-          headerTitleAlign: "center",
-          headerRight: ({ focused, size, color }) => (
-            <Feather name="log-out" size={20} color="#BDBDBD" />
-          ),
+          headerShown: false,
 
+          headerTitleAlign: "center",
+          headerRightContainerStyle: { paddingRight: 15 },
           tabBarIcon: ({ focused, size, color }) => (
             <Publications name="postage-stamp" size={size} color={color} />
           ),
-          headerRightContainerStyle: { paddingRight: 8 },
         }}
         name="Posts"
         component={PostsScreen}

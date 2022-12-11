@@ -51,11 +51,12 @@ const CameraComponent = ({ setPhoto }) => {
       try {
         const data = await cameraRef.current.takePictureAsync();
         let location = await Location.getCurrentPositionAsync({});
-        console.log("====================================");
-        console.log(location.coords.latitude);
-        console.log(location.coords.longitude);
-        console.log("====================================");
-        setPhoto(data.uri);
+
+        const uri = data.uri;
+        const latitude = location.coords.latitude;
+        const longitude = location.coords.longitude;
+        const cameraData = { uri, latitude, longitude };
+        setPhoto(cameraData);
 
         // зебераю фото с камери передаю в в скрін створення фото картки
       } catch (error) {

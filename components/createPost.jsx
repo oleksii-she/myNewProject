@@ -39,7 +39,7 @@ export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
   const submit = () => {
     const data = {
       ...dataState,
-      img: `${photo}`,
+      ...photo,
     };
     if (data.name !== "" || data.location !== "") {
       publicationData(data);
@@ -66,7 +66,7 @@ export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
         <View>
           <View style={createPostStyles.imgBox}>
             <Image
-              source={{ uri: photo }}
+              source={{ uri: photo.uri }}
               style={{
                 ...createPostStyles.image,
                 height: isShowKeyboard ? heightImageIsShowKeyboard() : 240,

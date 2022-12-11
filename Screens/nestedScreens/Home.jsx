@@ -44,20 +44,9 @@ const Home = ({ route, navigation }) => {
     return null;
   }
 
-  const navigationMap = () => {
-    navigation.navigate("Map");
-  };
-  const navigationComments = () => {
-    navigation.navigate("Comments");
-  };
-
   return (
     <View style={styles.container} onLayout={onFontsLoaded}>
-      <Posts
-        data={post}
-        navigationMap={navigationMap}
-        navigationComments={navigationComments}
-      />
+      <Posts data={post} navigation={navigation} />
     </View>
   );
 };
