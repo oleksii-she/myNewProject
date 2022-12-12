@@ -34,7 +34,10 @@ const PostsScreen = () => {
       <NestedScreen.Screen
         name="Map"
         component={MapScreen}
-        options={{ headerTitle: "Карта", headerTitleAlign: "center" }}
+        options={{
+          headerTitle: "Карта",
+          headerTitleAlign: "center",
+        }}
       />
     </NestedScreen.Navigator>
   );

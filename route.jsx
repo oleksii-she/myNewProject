@@ -69,6 +69,7 @@ export const useRoute = (isAuth) => {
         options={{
           headerTitleAlign: "center",
           headerTitle: "Создать публикацию",
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ focused, size, color }) => (
             <ButtonsCreatePublication
               name="postage-stamp"

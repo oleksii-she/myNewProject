@@ -11,6 +11,8 @@ import {
 
 import { styles, loginStyle } from "../Screens/styles";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { authSignInUser } from "../redux/auth/authOperation";
 
 const initialState = {
   email: "",
@@ -22,12 +24,27 @@ export const LoginForm = ({ navigationRegistr, navigationPosts }) => {
   const [passHidden, setPassHidden] = useState(true);
   const [dataState, setDataState] = useState(initialState);
   const { height, width } = useWindowDimensions();
+  const [errorMessage, setErrorMessage] = useState(false);
   const [borderColorLogin, setBorderColorLogin] = useState("transparent");
   const [borderColorPass, setBorderColorPass] = useState("transparent");
+
+  const dispatch = useDispatch();
 
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+    setPassHidden(true);
+  };
+
+  const hendlerSubmit = () => {
+    if (dataState.email === "" || dataState.password === "") {
+      return setErrorMessage(true);
+    }
+    setErrorMessage(false);
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+
+    dispatch(authSignInUser(dataState));
 
     setDataState(initialState);
     setPassHidden(true);
@@ -50,6 +67,18 @@ export const LoginForm = ({ navigationRegistr, navigationPosts }) => {
       >
         <View style={styles.form}>
           <Text style={styles.title}>Войти</Text>
+          {errorMessage && (
+            <Text
+              style={{
+                marginBottom: 5,
+                fontSize: 15,
+                color: "red",
+                textAlign: "center",
+              }}
+            >
+              All fields must be filled
+            </Text>
+          )}
           <View>
             <TextInput
               style={{
@@ -111,8 +140,7 @@ export const LoginForm = ({ navigationRegistr, navigationPosts }) => {
             <TouchableOpacity
               style={styles.buttonRegistr}
               onPress={() => {
-                keyboardHide();
-                navigationPosts();
+                hendlerSubmit();
               }}
             >
               <Text style={styles.refistrTextButton}>Войти</Text>

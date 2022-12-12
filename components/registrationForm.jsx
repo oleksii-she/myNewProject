@@ -11,8 +11,11 @@ import {
 
 import { styles } from "../Screens/styles";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { authSignUpUser } from "../redux/auth/authOperation";
 
 const initialState = {
+  nickName: "",
   email: "",
   password: "",
 };
@@ -22,15 +25,36 @@ export const RegistrationForm = ({ navigationLogin }) => {
   const [dataState, setDataState] = useState(initialState);
   const { height, width } = useWindowDimensions();
   const [passHidden, setPassHidden] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(false);
   //borderColor
   const [borderColorLogin, setBorderColorLogin] = useState("transparent");
   const [borderColorEmail, setBorderColorEmail] = useState("transparent");
   const [borderColorPass, setBorderColorPass] = useState("transparent");
+
+  const dispatch = useDispatch();
+
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    setDataState(initialState);
+
     setPassHidden(true);
+  };
+
+  const hendlerSubmit = () => {
+    if (
+      dataState.email === "" ||
+      dataState.nickName === "" ||
+      dataState.password === ""
+    ) {
+      return setErrorMessage(true);
+    }
+    setErrorMessage(false);
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+
+    dispatch(authSignUpUser(dataState));
+
+    setDataState(initialState);
   };
 
   return (
@@ -56,6 +80,19 @@ export const RegistrationForm = ({ navigationLogin }) => {
         </View>
         <View style={styles.form}>
           <Text style={styles.title}>Регистрация</Text>
+          {errorMessage && (
+            <Text
+              style={{
+                marginBottom: 5,
+                fontSize: 15,
+                color: "red",
+                textAlign: "center",
+              }}
+            >
+              {" "}
+              all fields must be filled
+            </Text>
+          )}
           <View>
             <TextInput
               style={{
@@ -71,10 +108,10 @@ export const RegistrationForm = ({ navigationLogin }) => {
                 setPassHidden(true);
                 setBorderColorLogin("transparent");
               }}
-              value={dataState.name}
+              value={dataState.nickName}
               onSubmitEditing={keyboardHide}
               onChangeText={(value) =>
-                setDataState((prevState) => ({ ...prevState, name: value }))
+                setDataState((prevState) => ({ ...prevState, nickName: value }))
               }
             />
             <TextInput
@@ -137,9 +174,9 @@ export const RegistrationForm = ({ navigationLogin }) => {
 
             <TouchableOpacity
               style={styles.buttonRegistr}
-              onPress={keyboardHide}
+              onPress={hendlerSubmit}
             >
-              <Text style={styles.refistrTextButton}>Войти</Text>
+              <Text style={styles.refistrTextButton}>Регистрация</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonLogin}
