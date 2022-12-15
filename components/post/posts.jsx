@@ -22,9 +22,6 @@ export const Posts = ({ data, navigation }) => {
     return imegeWidth;
   };
 
-  console.log("====================================");
-  console.log(data);
-  console.log("====================================");
   return (
     <FlatList
       data={data}
@@ -40,7 +37,14 @@ export const Posts = ({ data, navigation }) => {
           <Text style={postStyles.title}>{item.name}</Text>
           <View style={postStyles.descriptionBox}>
             <View style={postStyles.descriptionItem}>
-              <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Comments", {
+                    postId: item.id,
+                    uri: item.photo,
+                  })
+                }
+              >
                 <EvilIcons name="comment" size={24} color="black" />
               </TouchableOpacity>
               <Text>0</Text>

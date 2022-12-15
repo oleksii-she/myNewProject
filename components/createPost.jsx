@@ -19,7 +19,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db } from "../fireBase/config";
 import { collection, addDoc } from "firebase/firestore";
 
-import { v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
+
 //data
 const initialState = {
   name: "",
@@ -72,7 +73,7 @@ export const CreatePost = ({ photoData, deletePhoto, publicationData }) => {
       const file = await response.blob();
 
       // унікальне айді
-      const postId = v4();
+      const postId = uuidv4();
 
       // викликаю стореж
       const storage = getStorage();
@@ -99,12 +100,12 @@ export const CreatePost = ({ photoData, deletePhoto, publicationData }) => {
   };
 
   const uploadPostToServer = async () => {
-    /// беру фото ыз сторж
+    /// беру фото з сторeжa
     const photo = await uploadPhotoToserver();
 
     try {
       // додаю документ. створюю колекцію
-      const docRef = await addDoc(collection(db, "post"), {
+      const docRef = await addDoc(collection(db, "posts"), {
         photo: photo,
         name: dataState.name,
         location: {

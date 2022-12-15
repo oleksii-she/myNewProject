@@ -39,8 +39,8 @@ const Home = ({ route, navigation }) => {
 
   const getAllPost = async () => {
     try {
-      let array = [];
-      const querySnapshot = await getDocs(collection(db, "post"));
+      const querySnapshot = await getDocs(collection(db, "posts"));
+
       querySnapshot.forEach((doc) => {
         const newPost = { ...doc.data(), id: doc.id };
         setPost((prevPosts) => {
@@ -54,9 +54,7 @@ const Home = ({ route, navigation }) => {
   useEffect(() => {
     getAllPost();
   }, []);
-  console.log("====================================");
-  console.log(post);
-  console.log("====================================");
+
   const onFontsLoaded = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();

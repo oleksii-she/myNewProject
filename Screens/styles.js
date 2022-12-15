@@ -227,3 +227,48 @@ export const createPostStyles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+///coments
+
+export const comentsStyles = StyleSheet.create({
+  box: {
+    flex: 1,
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+  },
+  inputBox: {
+    position: "relative",
+  },
+  input: {
+    borderRadius: 100,
+    backgroundColor: "#F6F6F6",
+    borderWidth: 1,
+    height: 50,
+    fontFamily: "Roboto-Regular",
+    fontWeight: "400",
+    padding: 16,
+    borderColor: "#E8E8E8",
+  },
+
+  btnArrow: {
+    position: "absolute",
+    zIndex: 100,
+    bottom: 8,
+
+    right: 8,
+    backgroundColor: "#FF6C00",
+    width: 34,
+    height: 34,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  comentBox: {
+    padding: 16,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 6,
+    maxWidth: 299,
+    marginBottom: 24,
+  },
+});
