@@ -5,9 +5,12 @@ import MapScreen from "../nestedScreens/MapScreen";
 import { Feather } from "@expo/vector-icons";
 import { BottomTabBar } from "@react-navigation/bottom-tabs";
 
+import { useDispatch } from "react-redux";
+import { authSignOutUser } from "../../redux/auth/authOperation";
 const NestedScreen = createStackNavigator();
 
 const PostsScreen = () => {
+  const dispatch = useDispatch();
   return (
     <NestedScreen.Navigator
       screenOptions={{
@@ -21,7 +24,12 @@ const PostsScreen = () => {
           headerTitle: "Публикации",
           headerTitleAlign: "center",
           headerRight: ({ focused, size, color }) => (
-            <Feather name="log-out" size={20} color="#BDBDBD" />
+            <Feather
+              name="log-out"
+              size={20}
+              color="#BDBDBD"
+              onPress={() => dispatch(authSignOutUser())}
+            />
           ),
         }}
       />

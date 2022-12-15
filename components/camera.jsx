@@ -2,7 +2,7 @@ import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { useEffect, useRef, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { Camera, CameraType } from "expo-camera";
+import { Camera } from "expo-camera";
 
 // icon
 
@@ -11,7 +11,7 @@ import { Entypo } from "@expo/vector-icons";
 ///styles
 import { CameraStyle } from "../Screens/styles";
 
-const CameraComponent = ({ setPhoto }) => {
+const CameraComponent = ({ setPhotoData }) => {
   //доступ до камери
   const [hasCameraPremission, setHasCameraPremission] = useState(null);
 
@@ -51,14 +51,14 @@ const CameraComponent = ({ setPhoto }) => {
       try {
         const data = await cameraRef.current.takePictureAsync();
         let location = await Location.getCurrentPositionAsync({});
-
         const uri = data.uri;
         const latitude = location.coords.latitude;
         const longitude = location.coords.longitude;
         const cameraData = { uri, latitude, longitude };
-        setPhoto(cameraData);
 
         // зебераю фото с камери передаю в в скрін створення фото картки
+
+        setPhotoData(cameraData);
       } catch (error) {
         console.log("cameraRef", error);
       }
@@ -90,32 +90,3 @@ const CameraComponent = ({ setPhoto }) => {
 };
 
 export default CameraComponent;
-
-// // return (
-// //     <View style={styles.container}>
-// //       <View style={CreatePostStyles.createBox}>
-// //         <Camera style={CreatePostStyles.camera} type={takePhoto}>
-// //           <View style={CreatePostStyles.buttonCamera}>
-// //             <TouchableOpacity
-// //               style={CreatePostStyles.camera}
-// //               onPress={toggleCameraType}r
-// //             >
-// //               <Entypo name="camera" size={24} color="#BDBDBD" />
-// //             </TouchableOpacity>
-// //           </View>
-// //         </Camera>
-// //         <View style={CreatePostStyles.photoBox}></View>
-// //         <TouchableOpacity
-// //           style={CreatePostStyles.buttonPuplication}
-// //           onPress={() => {}}
-// //         >
-// //           <Text style={styles.refistrTextButton}>Опубликовать</Text>
-// //         </TouchableOpacity>
-// //         <TouchableOpacity
-// //           style={CreatePostStyles.buttonDellete}
-// //           onPress={() => {}}
-// //         >
-// //           <AntDesign name="delete" size={16} color="#DADADA" />
-// //         </TouchableOpacity>
-// //       </View>
-// //     </View>

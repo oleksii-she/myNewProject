@@ -9,7 +9,7 @@ import { styles } from "./../styles";
 import { CreatePost } from "../../components/createPost";
 
 const CreatePostsScreen = ({ navigation }) => {
-  const [photo, setPhoto] = useState(null);
+  const [photoData, setPhotoData] = useState(null);
 
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
@@ -28,24 +28,24 @@ const CreatePostsScreen = ({ navigation }) => {
   }
 
   const deletePhoto = () => {
-    setPhoto(null);
+    setPhotoData(null);
   };
 
   const publicationData = (data) => {
-    navigation.navigate("Home", data);
+    navigation.navigate("Home");
     deletePhoto();
   };
 
   return (
     <View style={styles.container} onLayout={onFontsLoaded}>
-      {photo ? (
+      {photoData ? (
         <CreatePost
-          photo={photo}
+          photoData={photoData}
           deletePhoto={deletePhoto}
           publicationData={publicationData}
         />
       ) : (
-        <CameraComponent setPhoto={setPhoto} />
+        <CameraComponent setPhotoData={setPhotoData} />
       )}
     </View>
   );

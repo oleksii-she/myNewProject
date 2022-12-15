@@ -20,6 +20,15 @@ import { styles, postStyles } from "../styles";
 
 import { Posts } from "../../components/post/posts";
 
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../../fireBase/config";
+
 const Home = ({ route, navigation }) => {
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("../../assets/fonts/Roboto-Regular.ttf"),
@@ -28,12 +37,26 @@ const Home = ({ route, navigation }) => {
   });
   const [post, setPost] = useState([]);
 
-  useEffect(() => {
-    if (route.params) {
-      setPost((prevState) => [...prevState, route.params]);
-    }
-  }, [route.params]);
+  const getAllPost = async () => {
+    try {
+      let array = [];
+      const querySnapshot = await getDocs(collection(db, "post"));
+      querySnapshot.forEach((doc) => {
+        const newPost = { ...doc.data(), id: doc.id };
+        setPost((prevPosts) => {
+          const newPost = { ...doc.data(), id: doc.id };
+          return [...prevPosts, newPost];
+        });
+      });
+    } catch (error) {}
+  };
 
+  useEffect(() => {
+    getAllPost();
+  }, []);
+  console.log("====================================");
+  console.log(post);
+  console.log("====================================");
   const onFontsLoaded = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();

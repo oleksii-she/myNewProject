@@ -22,6 +22,9 @@ export const Posts = ({ data, navigation }) => {
     return imegeWidth;
   };
 
+  console.log("====================================");
+  console.log(data);
+  console.log("====================================");
   return (
     <FlatList
       data={data}
@@ -30,7 +33,7 @@ export const Posts = ({ data, navigation }) => {
         <View style={postStyles.postConteiner}>
           <View style={{ ...createPostStyles.imgBox, marginBottom: 8 }}>
             <Image
-              source={{ uri: item.uri }}
+              source={{ uri: item.photo }}
               style={{ ...createPostStyles.image, width: imageWidth() }}
             />
           </View>
@@ -48,7 +51,9 @@ export const Posts = ({ data, navigation }) => {
               >
                 <Feather name="map-pin" size={16} color="#BDBDBD" />
               </TouchableOpacity>
-              <Text style={postStyles.descriptionText}>{item.location}</Text>
+              <Text style={postStyles.descriptionText}>
+                {item.locationName}
+              </Text>
             </View>
           </View>
         </View>

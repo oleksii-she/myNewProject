@@ -10,21 +10,27 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { createPostStyles, styles } from "../Screens/styles";
-
+import { useSelector } from "react-redux";
 // icons
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db } from "../fireBase/config";
+import { collection, addDoc } from "firebase/firestore";
+
+import { v4 } from "uuid";
 //data
 const initialState = {
   name: "",
-  location: "",
+  locationName: "",
 };
 
-export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
+export const CreatePost = ({ photoData, deletePhoto, publicationData }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [dataState, setDataState] = useState(initialState);
   const { height, width } = useWindowDimensions();
+  const { userId, nickName } = useSelector((state) => state.auth);
 
   const keyboardHide = () => {
     setIsShowKeyboard(false);
@@ -39,10 +45,11 @@ export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
   const submit = () => {
     const data = {
       ...dataState,
-      ...photo,
+      ...photoData,
     };
     if (data.name !== "" || data.location !== "") {
       publicationData(data);
+      uploadPostToServer();
     }
     setDataState(initialState);
   };
@@ -52,6 +59,66 @@ export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
       return 50;
     } else {
       return 200;
+    }
+  };
+
+  const uploadPhotoToserver = async () => {
+    try {
+      // поміщаю знімок в фетч, отримую респ із ним
+
+      const response = await fetch(photoData.uri);
+
+      // з респонса роблю блоб файл
+      const file = await response.blob();
+
+      // унікальне айді
+      const postId = v4();
+
+      // викликаю стореж
+      const storage = getStorage();
+
+      // створюю референс
+      const reference = "images/";
+
+      // шлях до сторежа, референс, імя файла, унікальний айді
+      const storageRef = ref(
+        storage,
+        reference + `${file.data.name}-${postId}`
+      );
+
+      //завантажую файл, вказую референс сторежа, передаю файл блоб
+      await uploadBytes(storageRef, file);
+
+      //беру шлях до звантаженого файлу
+      const imgRef = await getDownloadURL(storageRef);
+
+      return imgRef;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const uploadPostToServer = async () => {
+    /// беру фото ыз сторж
+    const photo = await uploadPhotoToserver();
+
+    try {
+      // додаю документ. створюю колекцію
+      const docRef = await addDoc(collection(db, "post"), {
+        photo: photo,
+        name: dataState.name,
+        location: {
+          name: dataState.locationName,
+          cords: {
+            latitude: photoData.latitude,
+            longitude: photoData.longitude,
+          },
+        },
+        userId,
+        nickName,
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
   };
 
@@ -66,7 +133,7 @@ export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
         <View>
           <View style={createPostStyles.imgBox}>
             <Image
-              source={{ uri: photo.uri }}
+              source={{ uri: photoData.uri }}
               style={{
                 ...createPostStyles.image,
                 height: isShowKeyboard ? heightImageIsShowKeyboard() : 240,
@@ -106,11 +173,11 @@ export const CreatePost = ({ photo, deletePhoto, publicationData }) => {
             }}
             onFocus={() => setIsShowKeyboard(true)}
             onSubmitEditing={keyboardHide}
-            value={dataState.location}
+            value={dataState.locationName}
             onChangeText={(value) =>
               setDataState((prevState) => ({
                 ...prevState,
-                location: value,
+                locationName: value,
               }))
             }
           />
