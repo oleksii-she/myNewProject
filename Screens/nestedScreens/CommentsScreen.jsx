@@ -105,34 +105,35 @@ const CommentsScreen = ({ route }) => {
           <View style={comentsStyles.imgBox}>
             <Image source={{ uri: uri }} style={createPostStyles.image} />
           </View>
-
-          <FlatList
-            data={allComments}
-            renderItem={({ item }) => (
-              <View style={comentsStyles.comentBox}>
-                <Text
-                  style={{
-                    ...comentsStyles.text,
-                    fontSize: 10,
-                    textAlign: "left",
-                  }}
-                >
-                  {item.nickName}
-                </Text>
-                <Text style={comentsStyles.text}>{item.comment}</Text>
-                <Text
-                  style={{
-                    ...comentsStyles.text,
-                    fontSize: 10,
-                    textAlign: "right",
-                  }}
-                >
-                  {item.time}
-                </Text>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          <SafeAreaView style={{ flex: 1 }}>
+            <FlatList
+              data={allComments}
+              renderItem={({ item }) => (
+                <View style={comentsStyles.comentBox}>
+                  <Text
+                    style={{
+                      ...comentsStyles.text,
+                      fontSize: 10,
+                      textAlign: "left",
+                    }}
+                  >
+                    {item.nickName}
+                  </Text>
+                  <Text style={comentsStyles.text}>{item.comment}</Text>
+                  <Text
+                    style={{
+                      ...comentsStyles.text,
+                      fontSize: 10,
+                      textAlign: "right",
+                    }}
+                  >
+                    {item.time}
+                  </Text>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </SafeAreaView>
 
           <View style={comentsStyles.inputBox}>
             <TextInput

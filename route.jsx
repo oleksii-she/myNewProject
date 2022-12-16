@@ -21,7 +21,10 @@ import Publications from "././assets/image/iconMain/publications.svg";
 
 import { ButtonsCreatePublication } from "./components/buttonsCreate";
 
+import { AntDesign } from "@expo/vector-icons";
+
 import { styles } from "./Screens/styles";
+import { useNavigation } from "@react-navigation/native";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -48,6 +51,7 @@ export const useRoute = (isAuth) => {
     <MainTab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
+        // headerLeftContainerStyle: { paddingRight: 16 },
       }}
     >
       <MainTab.Screen
@@ -69,7 +73,10 @@ export const useRoute = (isAuth) => {
         options={{
           headerTitleAlign: "center",
           headerTitle: "Создать публикацию",
-          tabBarStyle: { display: "none" },
+          // headerLeft: ({ focused, size, color }) => (
+          //   <AntDesign name="arrowleft" size={24} color={color} />
+          // ),
+          // tabBarStyle: { display: "none" },
           tabBarIcon: ({ focused, size, color }) => (
             <ButtonsCreatePublication
               name="postage-stamp"
