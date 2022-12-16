@@ -24,6 +24,7 @@ import {
   useWindowDimensions,
   SafeAreaView,
   FlatList,
+  StyleSheet,
 } from "react-native";
 
 ///icon
@@ -36,21 +37,21 @@ const CommentsScreen = ({ route }) => {
     "Roboto-Medium": require("../../assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Bold": require("../../assets/fonts/Roboto-Bold.ttf"),
   });
-  const [comment, setComent] = useState("");
-  const [allComent, setAllComent] = useState([]);
+  const { height, width } = useWindowDimensions();
+  const [comment, setComment] = useState("");
+  const [allComments, setAllComments] = useState([]);
 
   const { nickName } = useSelector((state) => state.auth);
   const { postId, uri } = route.params;
 
-  useEffect(() => {
-    getAllComments();
-  }, []);
-
-  const cratePost = async () => {
+  const createPost = async () => {
     var DataTime = new Date().toLocaleString();
 
     if (postId) {
       try {
+        if (comment === "") {
+          return;
+        }
         const docRef = await addDoc(
           collection(db, "posts", `${postId}/comment`),
           {
@@ -59,12 +60,15 @@ const CommentsScreen = ({ route }) => {
             time: DataTime,
           }
         );
-        setComent("");
+        setComment("");
       } catch (error) {
         console.error;
       }
     }
   };
+  useEffect(() => {
+    getAllComments();
+  }, []);
 
   const getAllComments = async () => {
     try {
@@ -73,11 +77,12 @@ const CommentsScreen = ({ route }) => {
       );
       querySnapshot.forEach((doc) => {
         const newComment = { ...doc.data() };
-        setAllComent((prevPosts) => {
+        setAllComments((prevPosts) => {
           const newComment = { ...doc.data() };
           return [...prevPosts, newComment];
         });
       });
+      Keyboard.dismiss();
     } catch (error) {
       console.log("error", error);
     }
@@ -92,41 +97,58 @@ const CommentsScreen = ({ route }) => {
   if (!fontsLoaded) {
     return null;
   }
-
+  // height - 485
   return (
     <View style={styles.container} onLayout={onFontsLoaded}>
-      <View style={comentsStyles.box}>
-        <SafeAreaView>
-          <View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={comentsStyles.box}>
+          <View style={comentsStyles.imgBox}>
             <Image source={{ uri: uri }} style={createPostStyles.image} />
           </View>
+
           <FlatList
-            data={allComent}
+            data={allComments}
             renderItem={({ item }) => (
               <View style={comentsStyles.comentBox}>
-                <Text>{item.nickName}</Text>
-                <Text>{item.comment}</Text>
-                <Text>{item.time}</Text>
+                <Text
+                  style={{
+                    ...comentsStyles.text,
+                    fontSize: 10,
+                    textAlign: "left",
+                  }}
+                >
+                  {item.nickName}
+                </Text>
+                <Text style={comentsStyles.text}>{item.comment}</Text>
+                <Text
+                  style={{
+                    ...comentsStyles.text,
+                    fontSize: 10,
+                    textAlign: "right",
+                  }}
+                >
+                  {item.time}
+                </Text>
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
           />
-        </SafeAreaView>
 
-        <View style={comentsStyles.inputBox}>
-          <TextInput
-            placeholder="Комментировать..."
-            style={comentsStyles.input}
-            value={comment}
-            onChangeText={setComent}
-          />
-          <TouchableOpacity onPress={cratePost}>
-            <View style={comentsStyles.btnArrow}>
-              <Feather name="arrow-up" size={14} color="#FFFFFF" />
-            </View>
-          </TouchableOpacity>
+          <View style={comentsStyles.inputBox}>
+            <TextInput
+              placeholder="Комментировать..."
+              style={comentsStyles.input}
+              value={comment}
+              onChangeText={setComment}
+            />
+            <TouchableOpacity onPress={createPost} activeOpacity={0.8}>
+              <View style={comentsStyles.btnArrow}>
+                <Feather name="arrow-up" size={14} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 };

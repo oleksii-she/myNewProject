@@ -233,9 +233,12 @@ export const createPostStyles = StyleSheet.create({
 export const comentsStyles = StyleSheet.create({
   box: {
     flex: 1,
-    justifyContent: "space-between",
+
     paddingHorizontal: 16,
+
+    paddingVertical: 16,
   },
+
   inputBox: {
     position: "relative",
   },
@@ -264,11 +267,27 @@ export const comentsStyles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  imgBox: {
+    marginBottom: 8,
+  },
+
   comentBox: {
     padding: 16,
     backgroundColor: "#F6F6F6",
     borderRadius: 6,
     maxWidth: 299,
     marginBottom: 24,
+  },
+
+  comentConteiner: {
+    border: 1,
+    // maxHeight: 50,
+  },
+
+  text: {
+    fontFamily: "Roboto-Regular",
+    fontWeight: "400",
+    fontSize: 13,
+    marginBottom: 8,
   },
 });
