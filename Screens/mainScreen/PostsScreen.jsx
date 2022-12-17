@@ -3,6 +3,7 @@ import Home from "../nestedScreens/Home";
 import CommentsScreen from "../nestedScreens/CommentsScreen";
 import MapScreen from "../nestedScreens/MapScreen";
 import { Feather } from "@expo/vector-icons";
+
 import { BottomTabBar } from "@react-navigation/bottom-tabs";
 
 import { useDispatch } from "react-redux";

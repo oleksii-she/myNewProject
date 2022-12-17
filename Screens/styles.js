@@ -291,3 +291,25 @@ export const comentsStyles = StyleSheet.create({
     marginBottom: 8,
   },
 });
+
+///profile
+
+export const profileStyles = StyleSheet.create({
+  profileBox: {
+    backgroundColor: "#FFF",
+    borderTopRightRadius: 25,
+    borderTopLeftRadius: 25,
+
+    paddingHorizontal: 16,
+
+    paddingTop: 25,
+  },
+
+  title: {
+    fontFamily: "Roboto-Bold",
+    fontWeight: "500",
+    fontSize: 30,
+    textAlign: "center",
+    marginBottom: 18,
+  },
+});

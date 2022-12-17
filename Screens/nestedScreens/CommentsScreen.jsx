@@ -97,7 +97,7 @@ const CommentsScreen = ({ route }) => {
   if (!fontsLoaded) {
     return null;
   }
-  // height - 485
+
   return (
     <View style={styles.container} onLayout={onFontsLoaded}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

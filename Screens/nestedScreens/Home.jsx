@@ -16,17 +16,11 @@ import {
   TouchableWithoutFeedback,
   useWindowDimensions,
 } from "react-native";
-import { styles, postStyles } from "../styles";
+import { styles } from "../styles";
 
 import { Posts } from "../../components/post/posts";
 
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../fireBase/config";
 
 const Home = ({ route, navigation }) => {

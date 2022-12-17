@@ -137,7 +137,7 @@ export const CreatePost = ({ photoData, deletePhoto, publicationData }) => {
               source={{ uri: photoData.uri }}
               style={{
                 ...createPostStyles.image,
-                height: isShowKeyboard ? heightImageIsShowKeyboard() : 240,
+                height: isShowKeyboard ? height - 610 : 240,
                 width: imageWidth(),
               }}
             />
@@ -193,6 +193,7 @@ export const CreatePost = ({ photoData, deletePhoto, publicationData }) => {
         >
           <Text style={styles.refistrTextButton}>Опубликовать</Text>
         </TouchableOpacity>
+
         <View style={createPostStyles.buttonBixDelete}>
           <TouchableOpacity
             style={createPostStyles.buttonDellete}
