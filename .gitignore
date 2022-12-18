@@ -13,6 +13,6 @@ npm-debug.*
 .env.json
 .env-cmdrc
 web-build/
-config.js
+
 # macOS
 .DS_Store
