@@ -47,7 +47,6 @@ export const Posts = ({ data, navigation }) => {
               >
                 <EvilIcons name="comment" size={24} color="black" />
               </TouchableOpacity>
-              <Text>0</Text>
             </View>
             <View style={postStyles.descriptionItem}>
               <TouchableOpacity

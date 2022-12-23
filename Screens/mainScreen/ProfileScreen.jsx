@@ -46,6 +46,7 @@ const ProfileScreen = ({ navigation }) => {
   const { height, width } = useWindowDimensions();
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     const getUsserPost = async () => {
       try {

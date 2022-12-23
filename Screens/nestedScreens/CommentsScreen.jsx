@@ -5,9 +5,18 @@ import { useFonts } from "expo-font";
 import { styles, comentsStyles, createPostStyles } from "../styles";
 
 //firebase
-import { collection, getDocs, addDoc } from "firebase/firestore";
-
 import { db } from "../../fireBase/config";
+
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  document,
+} from "firebase/firestore";
 
 import {
   ImageBackground,
@@ -52,15 +61,17 @@ const CommentsScreen = ({ route }) => {
         if (comment === "") {
           return;
         }
-        const docRef = await addDoc(
-          collection(db, "posts", `${postId}/comment`),
-          {
-            comment,
-            nickName,
-            time: DataTime,
-          }
-        );
+
+        const postsDocRef = doc(db, "posts", postId);
+
+        const ref = await addDoc(collection(postsDocRef, "comments"), {
+          comment,
+          nickName,
+          time: DataTime,
+        });
+
         setComment("");
+        Keyboard.dismiss();
       } catch (error) {
         console.error;
       }
@@ -72,17 +83,20 @@ const CommentsScreen = ({ route }) => {
 
   const getAllComments = async () => {
     try {
-      const querySnapshot = await getDocs(
-        collection(db, "posts", `${postId}/comment`)
-      );
-      querySnapshot.forEach((doc) => {
-        const newComment = { ...doc.data() };
-        setAllComments((prevPosts) => {
-          const newComment = { ...doc.data() };
-          return [...prevPosts, newComment];
+      const docRef = await doc(db, "posts", postId);
+
+      const q = await query(collection(docRef, "comments"));
+
+      onSnapshot(q, (data) => {
+        setAllComments([]);
+        data.forEach((doc) => {
+          setAllComments((prevState) => {
+            const newComments = { ...doc.data(), id: doc.id };
+
+            return [...prevState, newComments];
+          });
         });
       });
-      Keyboard.dismiss();
     } catch (error) {
       console.log("error", error);
     }

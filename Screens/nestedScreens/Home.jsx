@@ -20,7 +20,13 @@ import { styles } from "../styles";
 
 import { Posts } from "../../components/post/posts";
 
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  doc,
+  query,
+} from "firebase/firestore";
 import { db } from "../../fireBase/config";
 
 const Home = ({ route, navigation }) => {
@@ -33,13 +39,16 @@ const Home = ({ route, navigation }) => {
 
   const getAllPost = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "posts"));
+      const q = query(collection(db, "posts"));
 
-      querySnapshot.forEach((doc) => {
-        const newPost = { ...doc.data(), id: doc.id };
-        setPost((prevPosts) => {
-          const newPost = { ...doc.data(), id: doc.id };
-          return [...prevPosts, newPost];
+      onSnapshot(q, (data) => {
+        setPost([]);
+        data.forEach((doc) => {
+          setPost((prevState) => {
+            const newComments = { ...doc.data(), id: doc.id };
+
+            return [...prevState, newComments];
+          });
         });
       });
     } catch (error) {}
