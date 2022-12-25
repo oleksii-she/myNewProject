@@ -10,8 +10,8 @@ import {
 } from "react-native";
 
 import { styles } from "../Screens/styles";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { authSignUpUser } from "../redux/auth/authOperation";
 
 const initialState = {
@@ -25,11 +25,13 @@ export const RegistrationForm = ({ navigationLogin }) => {
   const [dataState, setDataState] = useState(initialState);
   const { height, width } = useWindowDimensions();
   const [passHidden, setPassHidden] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   //borderColor
   const [borderColorLogin, setBorderColorLogin] = useState("transparent");
   const [borderColorEmail, setBorderColorEmail] = useState("transparent");
   const [borderColorPass, setBorderColorPass] = useState("transparent");
+
+  const { statusSignUpUser } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -46,15 +48,34 @@ export const RegistrationForm = ({ navigationLogin }) => {
       dataState.nickName === "" ||
       dataState.password === ""
     ) {
-      return setErrorMessage(true);
+      setErrorMessage("all fields must be filled");
     }
-    setErrorMessage(false);
+    setErrorMessage(null);
     setIsShowKeyboard(false);
     Keyboard.dismiss();
 
     dispatch(authSignUpUser(dataState));
 
     setDataState(initialState);
+  };
+
+  useEffect(() => {
+    statusErrorMessage();
+  });
+  const statusErrorMessage = () => {
+    switch (statusSignUpUser) {
+      case "Firebase: Error (auth/invalid-email).":
+        setErrorMessage("неверный емейл");
+        break;
+      case "Firebase: Error (auth/email-already-in-use).":
+        setErrorMessage("такой емейл уже существует");
+        break;
+      case "Firebase: Error (auth/network-request-failed).":
+        setErrorMessage("Возникли проблемы с интернет сойденением");
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -89,8 +110,7 @@ export const RegistrationForm = ({ navigationLogin }) => {
                 textAlign: "center",
               }}
             >
-              {" "}
-              all fields must be filled
+              {errorMessage}
             </Text>
           )}
           <View>

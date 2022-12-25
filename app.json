@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "myNewProject",
+    
+    "name": "photoApp",
     "slug": "photoapp",
+    "owner": "oleksiishe",
     "version": "1.0.0",
     "orientation": "default",
     "userInterfaceStyle": "light",
@@ -30,7 +32,6 @@
       "eas": {
         "projectId": "1480218e-b45b-4385-9867-c6f85e845229"
       }
-    },
-    "owner": "oleksiishe"
+    }
   }
 }

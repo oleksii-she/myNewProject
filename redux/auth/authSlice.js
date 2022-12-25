@@ -4,6 +4,8 @@ const state = {
   userId: null,
   nickName: null,
   stateChange: false,
+  statusSignUpUser: null,
+  statusSignInUser: null,
 };
 
 export const authSlice = createSlice({
@@ -22,5 +24,15 @@ export const authSlice = createSlice({
     }),
 
     authSignOut: () => state,
+
+    errorStatusSignUpUser: (state, { payload }) => ({
+      ...state,
+      statusSignUpUser: payload.statusSignUpUser,
+    }),
+
+    errorSignInUser: (state, { payload }) => ({
+      ...state,
+      statusSignInUser: payload.statusSignInUser,
+    }),
   },
 });

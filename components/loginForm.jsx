@@ -10,8 +10,8 @@ import {
 } from "react-native";
 
 import { styles, loginStyle } from "../Screens/styles";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { authSignInUser } from "../redux/auth/authOperation";
 
 const initialState = {
@@ -24,9 +24,11 @@ export const LoginForm = ({ navigationRegistr, navigationPosts }) => {
   const [passHidden, setPassHidden] = useState(true);
   const [dataState, setDataState] = useState(initialState);
   const { height, width } = useWindowDimensions();
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [borderColorLogin, setBorderColorLogin] = useState("transparent");
   const [borderColorPass, setBorderColorPass] = useState("transparent");
+
+  const { statusSignInUser } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -38,9 +40,10 @@ export const LoginForm = ({ navigationRegistr, navigationPosts }) => {
 
   const hendlerSubmit = () => {
     if (dataState.email === "" || dataState.password === "") {
-      return setErrorMessage(true);
+      return setErrorMessage(" All fields must be filled");
     }
-    setErrorMessage(false);
+    setErrorMessage(null);
+
     setIsShowKeyboard(false);
     Keyboard.dismiss();
 
@@ -48,6 +51,29 @@ export const LoginForm = ({ navigationRegistr, navigationPosts }) => {
 
     setDataState(initialState);
     setPassHidden(true);
+  };
+  useEffect(() => {
+    statusErrorMessage();
+  });
+  const statusErrorMessage = () => {
+    switch (statusSignInUser) {
+      case "Firebase: Error (auth/user-not-found).":
+        setErrorMessage("такой емейл не существует");
+        break;
+      case "Firebase: Error (auth/invalid-email).":
+        setErrorMessage("неверный емейл");
+        break;
+      case "Firebase: Error (auth/wrong-password).":
+        setErrorMessage("неверный пароль");
+        break;
+      case "Firebase: Error (auth/network-request-failed).":
+        setErrorMessage(
+          "проверьте сойденение с интернетом, или перезайдите позже"
+        );
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -76,7 +102,7 @@ export const LoginForm = ({ navigationRegistr, navigationPosts }) => {
                 textAlign: "center",
               }}
             >
-              All fields must be filled
+              {errorMessage}
             </Text>
           )}
           <View>

@@ -36,7 +36,13 @@ export const authSignUpUser =
         })
       );
     } catch (error) {
-      console.log("message", error.message);
+      dispatch(
+        authSlice.actions.errorStatusSignUpUser({
+          statusSignUpUser: error.message,
+        })
+      );
+
+      console.log(error);
     }
   };
 
@@ -47,7 +53,13 @@ export const authSignInUser =
       const auth = getAuth();
       const user = await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      console.log("message", error.message);
+      dispatch(
+        authSlice.actions.errorSignInUser({
+          statusSignInUser: error.message,
+        })
+      );
+
+      console.log(error);
     }
   };
 
